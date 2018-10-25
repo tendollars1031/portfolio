@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base href="/portfolio/">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<!-- <meta http-equiv="X-Frame-Options" content="sameorigin" /> -->
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta name="og:description" content="拾光投影個人作品集" />
+	<meta property="og:title" content="拾光投影"/>
+	<meta property="og:type" content="website"/>
+	<meta property="og:url" content="https://www.tendollarsliao.com/"/>
+	<meta property="og:image:type" content="image/png"/>
+	<meta property="og:image" content="https://www.tendollarsliao.com/images/logo.png"/>
+	<meta property="og:site_name" content="拾光投影" />
+	<meta name="description" content="拾光投影個人作品集">
+	<meta name="keywords" content="作品集">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/solid.css" integrity="sha384-osqezT+30O6N/vsMqwW8Ch6wKlMofqueuia2H7fePy42uC05rm1G+BUPSd2iBSJL" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/brands.css" integrity="sha384-Px1uYmw7+bCkOsNAiAV5nxGKJ0Ixn5nChyW8lCK1Li1ic9nbO5pC/iXaq27X5ENt" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/fontawesome.css" integrity="sha384-BzCy2fixOYd0HObpx3GMefNqdbA7Qjcc91RgYeDjrHTIEXqiF00jKvgQG0+zY/7I" crossorigin="anonymous">
+	<meta http-equiv="content-language" content="zh-Hant-TW">
+	<link rel="canonical" href="https://www.tendollarsliao.com/">
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon/favicon.ico?123" />
+	<link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="images/favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="images/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+	<link rel="manifest" href="images/favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="images/favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/hamburgers.min.css">
+	<link rel="stylesheet" href="css/main.css">
+	<style>
+		/* 20180719 */
+		.portfolio-page .video-list{
+			margin-bottom: 56px;
+		}
+	</style>
+	<title>拾光投影</title>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<header id="header">
+			<div class="nav">
+				<button class="hamburger hamburger--spring-r navbar-toggle nav-icon"
+					type="button" @click="navToggle"
+					:class="mobileNavToggle ? 'is-active' : ''">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
+				</button>
+				<div class="logo">
+					<router-link v-on:click.native="isCover = true; mobileNavToggle = false;" to="/">
+						<!-- <h1>{{isMobile}}</h1> -->
+						<img src="./images/logo_b.png">
+					</router-link>
+				</div>
+				<div class="collapse" :class="mobileNavToggle ? 'active' : ''">
+					<ul>
+						<li v-for="(d,key) in lang==0?data.zh_tw.home_data.navMenu:data.en.home_data.navMenu">
+							<router-link v-on:click.native="navToggle()" :to="d.link">{{d.item.toUpperCase()}}</router-link>
+						</li>
+					</ul>
+				</div>
+				<!-- <div class="active-cover" :class="mobileNavToggle ? 'active' : ''" @click="navToggle(); trackGALink('nav','burger_menu_toggle');"></div> -->
+			</div>
+		</header>
+
+		<div class="container-fluid">
+			<div class="row">
+				<transition name="coverTransition" mode="out-in">
+					<router-view class="viewer" ref="view"></router-view>
+				</transition>
+			</div>
+		</div>
+
+		<div id="customize-lightbox">
+			<div class="content-container">
+				<div class="hamburger hamburger--squeeze js-hamburger is-active lightbox-close" @click="closeLightbox()">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
+				</div>
+				<div class="video-container">
+					<div id="youtube-placeholder"></div>
+				</div>
+			</div>
+		</div>
+		<div id="customize-photo-lightbox">
+			<div class="content-container">
+				<div class="hamburger hamburger--squeeze js-hamburger is-active lightbox-close" @click="closeLightbox()">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
+				</div>
+				<div class="photo-container">
+					<div id="photo-placeholder"><img src="#" alt=""></div>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer" :class="isLanding ? 'landing' : ''">
+			<div class="container-fluid footer-container">
+				<div class="row">
+					<div class="col-sm-12">
+						<ul class="social-wrap">
+<!-- 							<li>
+								<a :href="facebookLink" target="_blank">
+									<i class="fab fa-instagram"></i>
+								</a>
+							</li>
+ -->							<li>
+								<div class="lang" @click="lang==0?lang=1:lang=0">
+									<i class="fas fa-language"></i>{{lang==0?"English":"中文"}}
+								</div>
+							</li>
+						</ul>
+						<div class="copyright">
+							Copyright © 2018 <a href="http://www.sparospace.com/" target="_blank">Sparospace</a> Inc. All rights reserved
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+	<template id="component-pagenotfound">
+		<section class="section absoulate-center">
+			<h2>需要協助嗎？您要找的頁面不存在喔。</h2>
+		</section>
+	</template>
+
+	<template id="component-landing">
+		<section class="section landing-page">
+			<div class="cam-view">
+				<div id="container">
+					<div id="scene" class="scene">
+						<div data-depth="0.15"><img src="landing_bg.png"></div>
+						<div data-depth="0.07"><img src="landing_ten.png"></div>
+					</div>
+				</div>
+			</div>
+			<div class="cam-control">
+				<router-link to="/portfolio"><div class="camraw"></div></router-link>
+				<button @click="takephoto"></button>
+				<a :href="this.$root.instagramLink" target="_blank">
+					<i class="fab fa-instagram"></i>
+				</a>
+			</div>
+		</section>
+	</template>
+
+	<template id="component-portfolio">
+		<section class="section portfolio-page">
+			<div class="container-fluid">
+				<div class="row">
+					<ul class="video-list">
+						<li v-for="(item, index) in portfolioData.slice().reverse()"
+							class="col-lg-4 col-md-4 col-sm-6 col-xs-12 video-item">
+							<a
+								@click.prevent="$root.activeLightbox(item.videoID)"
+								:href="item.href" target="_blank">
+							<div class="bg-wrap" :style="'background-image: url(https://img.youtube.com/vi/'+ item.videoID +'/hqdefault.jpg)'">
+								<div class="content-wrap">
+									<h2> {{item.year}}</h2>
+									<h2> {{item.title}}</h2>
+									<h2>{{item.job}}</h2>
+								</div>
+							</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+	</template>
+	<template id="component-photograph">
+		<section class="section photograph-page">
+			<div class="container-fluid">
+				<div class="row">
+					<ul class="photo-list">
+						<li v-for="(item, index) in photographData"
+							class="col-lg-4 col-md-6 col-sm-6 col-xs-12 photo-item"
+							@click="$root.activePhotoLightbox(item.href)">
+							<div class="photo-wrap">
+								<img :src="item.href" alt="">
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+	</template>
+
+	<template id="component-about">
+		<section class="section about-page">
+			<div class="container">
+				<div class="row personal-info">
+					<div class="col-sm-6 col-sm-push-6">
+						<div class="img"><img src="images/about3.jpg" alt="ten"></div>
+					</div>
+					<div class="col-sm-6 col-sm-pull-6">
+						<h1>拾元 Ten</h1>
+						<ul>
+							<li>輔仁大學影像傳播學系 畢業</li>
+							<li>美商宏聲音樂有限公司 視覺統籌</li>
+							<li>自由影像工作者</li>
+							<li>透過導演、編劇、剪接呈現自己的語言與思考</li>
+						</ul>
+					</div>
+				</div>
+				<div class="row sub-section">
+					<div class="col-sm-12">
+						<ul class="quate">
+							<li>景物依舊，人事已非</li>
+							<li>光影閃現流逝的一點點光</li>
+							<li>暫留著我的眼界給你</li>
+						</ul>
+					</div>
+					<div class="col-sm-12">
+						<h2>作品簡歷</h2>
+						<ul class="list">
+							<li>導演【王力宏火力全開3D演唱會電影】執行導演、剪接 (入圍2016多倫多國際電影節TIFF OFFICIAL SELECTION )</li>
+							<li>導演【We are X】段落導演（2016年上映、2016日舞影展最佳剪輯）</li>
+							<li>短片【到達】導演、編劇、攝影、剪接（2016 NORTH HOLLYWOOD CINEFEST OFFICIAL SELECTION）</li>
+							<li>短片【Dear John】攝影 (入圍2012臺北電影節最佳短片獎)</li>
+						</ul>
+					</div>
+					<div class="col-sm-12">
+						<ul class="row">
+							<li class="img col-sm-4"><img src="images/about1.jpg" alt=""></li>
+							<li class="img col-sm-4"><img src="images/about2.jpg" alt=""></li>
+							<li class="img col-sm-4"><img src="images/about4.jpg" alt=""></li>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+		</section>
+	</template>
+
+	<template id="component-contact">
+		<section class="section contact-page">
+			<h2>艾朵國際股份有限公司<span>ADORE MARKETING CO., LTD.</span></h2>
+			<h3>T: 886-2-2356-0693 EXT.15</h3>
+			<h3>F: 886-2-2356-0613</h3>
+			<h3>M : 886-955-021-575</h3>
+			<br>
+			<br>
+			<h2>Joseph Hung</h2>
+			<h3>joseph@adoremkt.com</h3>
+			<br>
+			<h2>Ten</h2>
+			<h3>tendollars1031@hotmail.com</h3>
+
+		</section>
+	</template>
+	
+
+	<!-- <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script> -->
+	<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script>
+
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyD0FT0Z2EgxJ_nqp8Onk9RJPFPgr-9uLXY",
+	    authDomain: "tendollar-portfolio.firebaseapp.com",
+	    databaseURL: "https://tendollar-portfolio.firebaseio.com",
+	    projectId: "tendollar-portfolio",
+	    storageBucket: "tendollar-portfolio.appspot.com",
+	    messagingSenderId: "490924414042"
+	  };
+	  firebase.initializeApp(config);
+	  var db = firebase.firestore();
+	</script>
+	<script src="https://www.youtube.com/iframe_api"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.js"></script>
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src="js/mobile-detect.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- <script src="js/owl.carousel.min.js?20180313"></script> -->
+	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+	<script src="js/youtube-control.js"></script>
+	<script src="js/jquery.lightbox_me.js"></script>
+	<script src="js/parallax.min.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/vue-router.js"></script>
+	<script src="js/main.js"></script>
+
+</body>
+</html>
